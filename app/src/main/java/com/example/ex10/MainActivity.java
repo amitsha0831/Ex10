@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void clicked(View view) {
 
-        // Input validation — empty field
         String input = etDisplay.getText().toString();
+
+        // If the field is empty, log and do nothing
         if (input.isEmpty()) {
             Log.i("Calculator", "field is empty");
-
             return;
         }
 
@@ -60,16 +60,13 @@ public class MainActivity extends AppCompatActivity {
                 id == R.id.btnMul || id == R.id.btnDiv) {
 
             if (firstNum) {
-                // This is the first number — save it to memory
                 memory   = currentNum;
                 firstNum = false;
             } else {
-                // A number is already in memory — compute intermediate result
                 memory = calculate(memory, currentNum, operator);
                 etDisplay.setText(formatResult(memory));
             }
 
-            // Save the new operation and clear the field
             if (id == R.id.btnAdd) operator = '+';
             if (id == R.id.btnSub) operator = '-';
             if (id == R.id.btnMul) operator = '*';
@@ -83,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.btnEquals) {
             if (firstNum) {
                 Log.i("Calculator", "no operation chosen yet");
-
                 return;
             }
             memory = calculate(memory, currentNum, operator);
@@ -91,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Performs the actual calculation based on the operator
     double calculate(double num1, double num2, char op) {
         if (op == '+') return num1 + num2;
         if (op == '-') return num1 - num2;
@@ -99,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         if (op == '/') {
             if (num2 == 0) {
                 Log.i("Calculator", "division by zero");
-
+                etDisplay.setText("Error");
                 return 0;
             }
             return num1 / num2;
@@ -107,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
-    // Displays whole numbers without a decimal point (e.g. 8 instead of 8.0)
     String formatResult(double result) {
         if (result == (long) result)
             return String.valueOf((long) result);
