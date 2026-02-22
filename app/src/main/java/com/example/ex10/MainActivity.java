@@ -1,9 +1,9 @@
 package com.example.ex10;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         // Input validation — empty field
         String input = etDisplay.getText().toString();
         if (input.isEmpty()) {
-            Toast.makeText(this, "Please enter a number", Toast.LENGTH_SHORT).show();
+            Log.i("Calculator", "field is empty");
+
             return;
         }
 
@@ -81,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
         // ===== Equals button =====
         if (id == R.id.btnEquals) {
             if (firstNum) {
-                Toast.makeText(this, "Please choose an operation first", Toast.LENGTH_SHORT).show();
+                Log.i("Calculator", "no operation chosen yet");
+
                 return;
             }
             memory = calculate(memory, currentNum, operator);
@@ -96,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
         if (op == '*') return num1 * num2;
         if (op == '/') {
             if (num2 == 0) {
-                Toast.makeText(this, "Error: division by zero!", Toast.LENGTH_SHORT).show();
+                Log.i("Calculator", "division by zero");
+
                 return 0;
             }
             return num1 / num2;
